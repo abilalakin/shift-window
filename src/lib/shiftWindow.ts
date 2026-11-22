@@ -28,7 +28,7 @@ export const PRICE_CURVES: Record<CurveId, PriceCurve> = {
   'sunny-weekday': {
     id: 'sunny-weekday',
     label: 'Sunny Weekday',
-    description: 'High solar generation with negative midday prices',
+    description: 'Lots of solar power makes midday electricity cheap or even negative.',
     prices: [
       68, 62, 58, 55, 57, 65,
       82, 108, 118, 96, 62, 18,
@@ -39,7 +39,7 @@ export const PRICE_CURVES: Record<CurveId, PriceCurve> = {
   'winter-peak': {
     id: 'winter-peak',
     label: 'Winter Peak',
-    description: 'Low overnight demand with steep morning and evening peaks',
+    description: 'Quiet overnight hours are cheap, while morning and evening peaks cost more.',
     prices: [
       54, 48, 44, 42, 46, 58,
       94, 148, 176, 168, 152, 142,

@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { BASELINE_START_HOUR, formatHour } from '../lib/shiftWindow'
+import { BASELINE_START_HOUR, formatEur, formatHour } from '../lib/shiftWindow'
 
 interface PriceBarChartProps {
   prices: readonly number[]
   startHour: number
   endHour: number
+  powerMw: number
 }
 
 const CHART_WIDTH = 960
@@ -27,7 +28,7 @@ function buildYAxis(prices: readonly number[]) {
   return { yMin, yMax, ticks }
 }
 
-export function PriceBarChart({ prices, startHour, endHour }: PriceBarChartProps) {
+export function PriceBarChart({ prices, startHour, endHour, powerMw }: PriceBarChartProps) {
   const [hoveredHour, setHoveredHour] = useState<number | null>(null)
 
   const { yMin, yMax, ticks } = buildYAxis(prices)
@@ -45,6 +46,7 @@ export function PriceBarChart({ prices, startHour, endHour }: PriceBarChartProps
 
   const activeHour = hoveredHour ?? startHour
   const activePrice = prices[activeHour]
+  const activeHourlyCost = activePrice * powerMw
   const activeInWindow = activeHour >= startHour && activeHour < endHour
 
   return (
@@ -52,17 +54,17 @@ export function PriceBarChart({ prices, startHour, endHour }: PriceBarChartProps
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-sm font-semibold tracking-tight text-slate-900">
-            Hourly Electricity Price Profile (00:00 – 23:00)
+            24-Hour Electricity Prices (00:00 – 23:00)
           </h2>
           <p className="text-xs text-slate-500">
-            German day-ahead prices in €/MWh · cheapest contiguous block highlighted
+            Hourly prices in €/MWh · cheapest consecutive hours highlighted in green
           </p>
         </div>
 
         <div className="flex items-center gap-4 text-xs">
           <div className="flex items-center gap-1.5 text-slate-600">
             <span className="h-2.5 w-2.5 rounded-xs bg-emerald-600" />
-            <span>Optimal window</span>
+            <span>Cheapest window</span>
           </div>
           <div className="flex items-center gap-1.5 text-slate-600">
             <span className="h-2.5 w-2.5 rounded-xs bg-slate-300" />
@@ -72,7 +74,8 @@ export function PriceBarChart({ prices, startHour, endHour }: PriceBarChartProps
             <span className="text-slate-500">{formatHour(activeHour)}</span>{' '}
             <span className={activeInWindow ? 'font-semibold text-emerald-700' : 'font-semibold text-slate-900'}>
               {activePrice} €/MWh
-            </span>
+            </span>{' '}
+            <span className="text-slate-500">({formatEur(activeHourlyCost)}/h)</span>
           </div>
         </div>
       </div>
