@@ -2,7 +2,7 @@
 
 A small web app that finds the cheapest hours of the day to run a high-power job using hourly German electricity prices (€/MWh).
 
-**Live demo:** https://shift-window.vercel.app
+**Live demo:** [Vercel](https://shift-window.vercel.app) · [GitHub Pages](https://abilalakin.github.io/shift-window/)
 
 ## What it does
 
