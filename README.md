@@ -4,6 +4,8 @@ A small web app that finds the cheapest hours of the day to run a high-power job
 
 **Live demo:** [Vercel](https://shift-window.vercel.app) · [GitHub Pages](https://abilalakin.github.io/shift-window/)
 
+![ShiftWindow screenshot](docs/screenshot.png)
+
 ## What it does
 
 - Shows a 24-hour price chart (`00:00` to `23:00`) for two sample days:
